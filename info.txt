@@ -1,0 +1,25 @@
+Welcome to the manual of the app.
+
+As you can see, you can access the help menu with several commands ('help'or 'h'), just like how you can enter this file by entering 'info' or 'i'.
+When shown the help option by simply typing 'help' or 'h', you will be able to see all possible action within this application. In this document we will look into all of them:
+
+The 'products' or 'p' action shows the standard products that are already provided from the start. This allows you to see their basic values.
+The 'add' or 'a' action makes it possible to add a new product to the already available list with product. For instance: if you want to add a product like cheese to the list,
+you simply enter its name, it's buy price and a sell price. You can add (and edit) as much as you like. 
+The 'del' or 'd' action allows you to delete any product you wish. Just enter it's name and all of the product information will be deleted. 
+The 'edit' or 'e' allows you to edit any info you wish. If you added a new product with the wrong price or with the wrong name, simply edit it with the preferred value and you're done.
+The 'buy' or 'b' action allows you to stock up on any product you wish. You can enter the preferred amount and the same amount will be added to your inventory.
+The 'sell' or 's' action allows the user to enter what product is sold and how many. The application reads how many are stocked up, so if the amount is not in stock the app will let you know.
+The 'stock' or 's' action returns how many of one specific product are in stock.
+The 'full stock' or 'fs' action shows how many of all available products are in stock.
+The 'check' or 'c' action allows you to check and directly remove all of the products with an expired expiration date.
+The 'custom date' or 'cd' allows the user to move back or forward to any specific date in time.
+The 'reset' or 'r' action resets the date to the present one.
+The 'today' or 't' action show what (hypothetical) date it is. For instance: if you just provided a future custom date, the app will tell you it's this specific date in the future. When reset
+it will give you the present date again.
+The 'profit' or 'w' action shows the profit (or loss) you made for the day that the app will call 'today' (see today).
+The 'profit yesterday' or 'py' action shows yesterdays profit (or loss).
+The 'exit' or 'x' action exits the application.
+
+In some cases an actions gives you a additional options that are compatible with the action (to see what's in stock for instance). So make sure you read up on those while using the app.
+If you still have questions or suggestions, send your mail to superpy@super.py (maar niet heus ;-) )!
