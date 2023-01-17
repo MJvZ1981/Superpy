@@ -123,7 +123,7 @@ def action():
     if action == 'profit yesterday' or action == 'py':
         profit_yesterday()
     if action == 'exit' or action == 'x':
-        quit()
+        reset_to_today() and quit()
     if action not in act_list:
         console.print("\n[b red]INVALID ACTION[/b red], [b]type [u]'help'[/u] of [u]'h'[/u] for more info[/b]")
     reset()
