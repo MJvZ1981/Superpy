@@ -10,5 +10,3 @@ On top of this, you can edit anything of every single item that is already in te
 3. I used the Typer and Rich module, what resulted in a (what I think of as) easy to use CLI. It's pretty straightforward and does not require the long strings needed with argparse. I think the program is pretty self-explanatoy because of this.
 
 4. Last but not least. The possibility to buy or sell multiple products. All products will be added to the underlaying data-files to properly manage your inventory. When a product is not properly stocked, the program will tell you exactly how many there are in stock.
-
-Sidenote: I came up with the idea to create a list of sorts: fruits [], dairy [] in the global scope. In the case where the supermarket can input what sort of product they want to add. For instance 'fruit'. In this case, the item will get appended to the fruits_list. This way I could keep up with the expiration date system I inplemented. But since there are so many sorts of products I just added a basic/standard date for newly added products. If the supermarket really does want to add this feature to the application (and willing to pay...) SURE! :)
