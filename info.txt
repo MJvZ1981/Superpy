@@ -13,10 +13,12 @@ The 'sell' or 's' action allows the user to enter what product is sold and how m
 The 'stock' or 's' action returns how many of one specific product are in stock.
 The 'full stock' or 'fs' action shows how many of all available products are in stock.
 The 'check' or 'c' action allows you to check and directly remove all of the products with an expired expiration date.
-The 'custom date' or 'cd' allows the user to move back or forward to any specific date in time.
+The 'change date' or 'cd' allows the user to move back or forward to any specific date in time.
 The 'reset' or 'r' action resets the date to the present one.
 The 'today' or 't' action show what (hypothetical) date it is. For instance: if you just provided a future custom date, the app will tell you it's this specific date in the future. When reset
 it will give you the present date again.
+The 'revenue today' action or 'rt' shows you today's revenue.
+The 'revenue yesterday' or 'ry' action returns yesterday's revenue.
 The 'profit' or 'w' action shows the profit (or loss) you made for the day that the app will call 'today' (see today).
 The 'profit yesterday' or 'py' action shows yesterdays profit (or loss).
 The 'exit' or 'x' action exits the application.
