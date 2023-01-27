@@ -66,8 +66,8 @@ def reset():
     app()
 
 
-act_list = ['help', 'h', 'products', 'p', 'info', "i", 'add', 'a', 'del', 'd', 'edit', 'e', 'buy', 'b', 'sell', 's', 'stock', 'st', 'full stock', 'fs', 'check', 'c', 'custom date', 
-            'cd', 'reset', 'r', 'today', 't', 'profit', 'w', 'profit yesterday', 'py', 'exit', 'x']
+act_list = ['help', 'h', 'products', 'p', 'info', "i", 'add', 'a', 'del', 'd', 'edit', 'e', 'buy', 'b', 'sell', 's', 'stock', 'st', 'full stock', 'fs', 'check', 'c', 'change date', 
+            'cd', 'reset', 'r', 'today', 't', 'revenue today', 'rt', 'revenue yesterday', 'ry', 'profit', 'w', 'profit yesterday', 'py', 'exit', 'x']
 
 
 def action():
@@ -86,9 +86,11 @@ def action():
         [b green]stock[/b green] = shows the amount in stock of the desired product [b green](st)[/b green]
         [b green]full stock[/b green] = shows all products in stock [b green](fs)[/b green]
         [b green]check[/b green] = checks for potential expired dates (and auto-removes expired ones) [b green](c)[/b green]
-        [b green]custom date[/b green] = create a specific date in time (+ or - a specific number of days) [b green](cd)[/b green]
+        [b green]change date[/b green] = create a specific date in time (+ or - a specific number of days) [b green](cd)[/b green]
         [b green]reset[/b green] = resets the date to the present time [b green](r)[/b green]
         [b green]today[/b green] = shows the given date (reset or not) [b green](t)[/b green]
+        [b green]revenue today[/b green] = shows today's revenue [b green](rt)[/b green]
+        [b green]revenue yesterday[/b green] = shows yesterday's revenue [b green](ry)[/b green]
         [b green]profit[/b green] = shows today's profit (or loss) [b green](w)[/b green]
         [b green]profit yesterday[/b green] = shows yesterdays profit (or loss) [b green](py)[/b green]
         [b red]exit[/b red] = quit [b red](x)[/b red]""")
@@ -112,12 +114,16 @@ def action():
         console.print(products_in_stock())
     if action == 'check' or action == 'c':
         check_inventory()
-    if action == 'custom date' or action == 'cd':
+    if action == 'change date' or action == 'cd':
         custom_date()
     if action == 'reset' or action == 'r':
         reset_to_today()
     if action == 'today' or action == 't':
         console.print("\n[b green]Today it is: [/b green]", today().strftime("%Y-%m-%d"))
+    if action == 'revenue today' or action == 'rt':
+        revenue_today()
+    if action == 'revenue yesterday' or action == 'ry':
+        revenue_yesterday()
     if action == 'profit' or action == 'w':
         profit()
     if action == 'profit yesterday' or action == 'py':
@@ -313,22 +319,14 @@ def buy_product():
             break
         except ValueError:
             console.print("\n[b red]ERROR! Input is not a number, type the amount:[/b red] ")
-        
-    if name.lower() in ['pear', 'kiwi', 'banana', 'apple']:
-        exp_dt_f = today() + timedelta(14)                       
-        exp_d = exp_dt_f.strftime("%Y-%m-%d")                   # Exp_d fruits
-    if name.lower() in ['broccoli', 'lettuce', 'sprouts']:
-        exp_dt_v = today() + timedelta(5)               
-        exp_d = exp_dt_v.strftime("%Y-%m-%d")                   # Exp_d veggies
-    if name.lower() in ['butter', 'eggs', 'milk']:
-        exp_dt_d = today() + timedelta(7)           
-        exp_d = exp_dt_d.strftime("%Y-%m-%d")                   # Exp_d dairy
-    if name.lower() in ['cola', 'fanta', 'sisi']:
-        exp_dt_s = today() + timedelta(200)           
-        exp_d = exp_dt_s.strftime("%Y-%m-%d")                   # Exp_d soda
-    if name.capitalize() not in products['Product']:
-        exp_dt_s = today() + timedelta(6)
-        exp_d = exp_dt_s.strftime("%Y-%m-%d")                   # random exp_d (for new products)
+    
+    while True:
+        exp_d = console.input("\n[b yellow]Insert the expiration date (YYYY-MM-DD)?[/b yellow] ")
+        try:
+            datetime.strptime(exp_d, '%Y-%m-%d')
+            break
+        except ValueError:
+            console.print('[b red]Incorrect data format, should be YYYY-MM-DD)[/b red]')
 
     bought_id = int(datetime.now().strftime("%Y%m%d%H%f"))
     index = df[df['Product'].str.lower() == name].index
@@ -355,7 +353,7 @@ def buy_product():
 
 def report_item():
     df = pd.read_csv(file_i)
-    print(df)
+    console.print(tabulate(df, headers="keys", tablefmt="fancy_grid"))
     
     my_list = [x for x in df['Product'].str[:].str.lower()]
     count = 0
@@ -501,6 +499,24 @@ def profit_yesterday():
         return console.print(f"\n[b green]Okay, break even: {sum}. Not bad!![/b green]")
     else:
         return console.print(f"\n[b green]Let's hope for a better day tomorrow!\nWe're down {sum}![/b green]")
+
+
+def revenue_today():
+    sdf = pd.read_csv(file_s)
+    sdf['Sell Date'] = pd.to_datetime(sdf['Sell Date'])
+    filt_s = sdf['Sell Date'] == today()
+    s = sdf.loc[filt_s, 'Sell Price']
+    total_s = s.sum()
+    return console.print(f"\n[b green]Our revenue so far is: {total_s}![/b green]")
+
+
+def revenue_yesterday():
+    sdf = pd.read_csv(file_s)
+    sdf['Sell Date'] = pd.to_datetime(sdf['Sell Date'])
+    filt_s = sdf['Sell Date'] == yesterday()
+    s = sdf.loc[filt_s, 'Sell Price']
+    total_s = s.sum()
+    return console.print(f"\n[b green]Our revenue was: {total_s}![/b green]")
 
 
 if __name__ == "__main__":
